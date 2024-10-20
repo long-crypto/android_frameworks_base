@@ -3,6 +3,7 @@ package com.android.internal.util;
 import android.app.Application;
 import android.content.Context;
 import android.os.Build;
+import android.os.SystemProperties;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -16,14 +17,14 @@ public final class Utils {
     private static final String TAG = Utils.class.getSimpleName();
 
     private static final Map<String, String> map = Map.of(
-            "ID", "AP31.240617.015",
+            "ID", "AP41.240823.009",
             "BRAND", "google",
-            "DEVICE", "akita",
-            "FINGERPRINT", "google/akita_beta/akita:15/AP31.240617.015/12207491:user/release-keys",
+            "DEVICE", "komodo",
+            "FINGERPRINT", "google/komodo_beta/komodo:15/AP41.240823.009/12329489:user/release-keys",
             "MANUFACTURER", "Google",
-            "MODEL", "Pixel 8a",
-            "PRODUCT", "akita_beta",
-            "SECURITY_PATCH", "2024-08-05"
+            "MODEL", "Pixel 9 Pro XL",
+            "PRODUCT", "komodo_beta",
+            "SECURITY_PATCH", "2024-09-05"
     );
 
     private static Field getBuildField(String name) {
@@ -54,6 +55,9 @@ public final class Utils {
         final String process = Application.getProcessName();
 
         if (TextUtils.isEmpty(process) || !"com.google.android.gms.unstable".equals(process))
+            return;
+
+        if (!SystemProperties.getBoolean("persist.sys.pixelprops.pi", true))
             return;
 
         map.forEach((fieldName, value) -> {
