@@ -433,7 +433,8 @@ public class PhoneWindow extends Window implements MenuBuilder.Callback {
         }
         // Even though the device doesn't support picture-in-picture mode,
         // an user can force using it through developer options.
-        boolean forceResizable = true;
+        boolean forceResizable = Settings.Global.getInt(context.getContentResolver(),
+                DEVELOPMENT_FORCE_RESIZABLE_ACTIVITIES, 0) != 0;
         mSupportsPictureInPicture = forceResizable || context.getPackageManager().hasSystemFeature(
                 PackageManager.FEATURE_PICTURE_IN_PICTURE);
         mActivityConfigCallback = activityConfigCallback;
